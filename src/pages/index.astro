@@ -1,0 +1,11 @@
+---
+import ArticleIndex from '../components/ArticleIndex';
+import { listArticles } from '../data/articles';
+import SiteLayout from '../layouts/SiteLayout.astro';
+
+const articles = await listArticles();
+---
+
+<SiteLayout title="Latest Articles" description="Browse sample articles about design and studio practice.">
+  <ArticleIndex articles={articles} />
+</SiteLayout>

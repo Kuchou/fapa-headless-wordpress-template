@@ -1,0 +1,24 @@
+---
+import type { GetStaticPaths } from 'astro';
+import ArticleDetail from '../../components/ArticleDetail';
+import { listArticles, type Article } from '../../data/articles';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+
+export const getStaticPaths = (async () => {
+  const articles = await listArticles();
+  return articles.map((article) => ({
+    params: { slug: article.slug },
+    props: { article },
+  }));
+}) satisfies GetStaticPaths;
+
+interface Props {
+  article: Article;
+}
+
+const { article } = Astro.props;
+---
+
+<SiteLayout title={article.title} description={article.excerpt}>
+  <ArticleDetail article={article} />
+</SiteLayout>
